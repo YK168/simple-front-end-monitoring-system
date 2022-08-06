@@ -1,0 +1,21 @@
+{
+  "vue3Component": {
+    "prefix": "vue3",
+    "body": [
+      "<template>",
+      "    <div>",
+      "      $2",
+      "    </div>",
+      "</template>\n",
+
+      "<script setup>",
+      "  ",
+      "</script>\n",
+
+      "<style lang=\"scss\" scoped>",
+      "  ",
+      "</style>\n"
+    ],
+    "description": "vue3 speed component"
+  }
+}
