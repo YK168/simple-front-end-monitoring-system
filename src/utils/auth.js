@@ -2,10 +2,18 @@ import router from '@/routers/index'
 
 export function toLogin () {
   router.replace({
-    path: '/login',
-    query: {
-      ...router.currentRoute.value.query,
-      redirect: router.currentRoute.value.path
-    }
+    path: '/login'
+  })
+}
+
+export function toRegister () {
+  router.replace({
+    path: '/register'
+  })
+}
+
+export function toHome () {
+  router.replace({
+    path: '/'
   })
 }

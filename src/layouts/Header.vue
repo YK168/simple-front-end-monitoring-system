@@ -25,9 +25,16 @@
 
 <script setup>
 import { useUserStore } from '@/store/modules/user'
+import { clearUserStorage } from '../utils/userCache'
+// import { toLogin } from '../utils/auth'
 
 const userStore = useUserStore()
 const userInfo = userStore.getUserInfo
+
+const logout = () => {
+  clearUserStorage()
+  userStore.logout()
+}
 </script>
 
 <style lang="scss" scoped>

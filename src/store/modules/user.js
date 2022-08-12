@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 import {
   getTokenStorage,
   getUserInfoStorage,
-  clearUserStorage
-} from '@/utils/userCache'
-import { toLogin } from '@/utils/auth'
+  clearUserStorage, setUserInfoStorage, setTokenStorage
+} from '../../utils/userCache'
+import { toLogin } from '../../utils/auth'
 
 export const useUserStore = defineStore({
   id: 'user',
@@ -24,7 +24,12 @@ export const useUserStore = defineStore({
     }
   },
   actions: {
-    async login () {},
+    async login (data, token) {
+      this.token = token
+      this.userInfo = data
+      setUserInfoStorage(data)
+      setTokenStorage(token)
+    },
     logout () {
       this.userInfo = null
       this.token = null

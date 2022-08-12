@@ -15,8 +15,9 @@ export class Storage {
       } catch (error) {
         return value
       }
+    } else {
+      return null
     }
-    return null
   }
 
   remove (key) {

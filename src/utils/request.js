@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ElMessage } from 'element-plus'
+import { ElNotification } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 
 // 请求拦截器
@@ -17,19 +17,27 @@ function reqReject (error) {
 
 // 响应拦截器
 function resResolve (response) {
-  const { code, message, data } = response.data
+  const { status, msg, data } = response.data
   // 与后端约定
-  if (code === 0) {
-    return data
+  if (status === 200) {
+    return response.data
   } else {
-    ElMessage.error(message)
+    ElNotification({
+      title: '',
+      message: msg,
+      type: 'error'
+    })
     return Promise.reject(data)
   }
 }
 
 function resReject (error) {
-  ElMessage.error(error.message)
-  return Promise.reject(error, response.data)
+  ElNotification({
+    title: error.response.data.status,
+    message: error.response.data.msg,
+    type: 'error'
+  })
+  return Promise.reject(error)
 }
 
 export function createAxios (options = {}) {
