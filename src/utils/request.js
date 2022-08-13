@@ -7,7 +7,7 @@ function reqResolve (config) {
   const userStore = useUserStore()
   const token = userStore.getToken
   // 如果token存在 注入token
-  config.headers.Authorization = `Bearer ${token}`
+  config.headers['x-token'] = token
   return config
 }
 

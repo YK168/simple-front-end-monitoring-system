@@ -47,6 +47,9 @@
     "unplugin-vue-components": "^0.22.0",
     "vite": "^3.0.0"
   },
+  "engines": {
+    "node": ">=16"
+  },
   "config": {
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
