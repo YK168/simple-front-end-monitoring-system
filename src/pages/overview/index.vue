@@ -1,51 +1,24 @@
 <template>
   <div class="home">
     <div class="head">
+      <button @click="acceptData(111)">0000</button>
       <div class="head_left">
         <echart :option="P_U_V_option" @getData="acceptData()"></echart>
       </div>
       <div class="head_right">
         <div class="h_r_1th">
-          <el-card shadow="always" class="card">
-            <div class="new_data">
-              <el-button type="success" link>0ms</el-button>
-            </div>
-            <div><el-button type="primary" link>首次渲染耗时</el-button></div>
-          </el-card>
+          <el-card shadow="always" class="card"> 卡片1 </el-card>
         </div>
         <div class="h_r_center">
           <div class="h_r_2th">
-            <el-card shadow="always" class="card">
-              <div class="new_data">
-                <el-button type="danger" link>10</el-button>
-              </div>
-              <div><el-button type="primary" link>JS错误数</el-button></div>
-              <div class="new_data">
-                <el-button type="danger" link>80%</el-button>
-              </div>
-              <div><el-button type="primary" link>JS错误率</el-button></div>
-            </el-card>
+            <el-card shadow="always" class="card"> 卡片2 </el-card>
           </div>
           <div class="h_r_3th">
-            <el-card shadow="always" class="card">
-              <div class="new_data">
-                <el-button type="danger" link>6</el-button>
-              </div>
-              <div><el-button type="primary" link>API错误数</el-button></div>
-              <div class="new_data">
-                <el-button type="danger" link>10%</el-button>
-              </div>
-              <div><el-button type="primary" link>API错误率</el-button></div>
-            </el-card>
+            <el-card shadow="always" class="card"> 卡片3 </el-card>
           </div>
         </div>
         <div class="h_r_4th">
-          <el-card shadow="always" class="card">
-            <div class="new_data">
-              <el-button type="danger" link>5次</el-button>
-            </div>
-            <div><el-button type="primary" link>资源加载错误</el-button></div>
-          </el-card>
+          <el-card shadow="always" class="card"> 卡片4 </el-card>
         </div>
       </div>
     </div>
@@ -77,77 +50,49 @@ export default {
   components: {
     echart
   },
-  data() {
+  data () {
     return {
       P_U_V_option: {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985'
-            }
-          }
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: [
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6'
+          ]
         },
-        legend: {
-          left: 0,
-          orient: 'vertical',
-          data: ['总PA', '总UA']
+        yAxis: {
+          type: 'value'
         },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: 'category',
-            boundaryGap: false,
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ],
         series: [
           {
-            name: '总PA',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
             type: 'line',
-            stack: 'Total',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: '总UA',
-            type: 'line',
-            stack: 'Total',
-            label: {
-              show: true,
-              position: 'top'
-            },
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
+            areaStyle: {}
           }
         ]
       },
       JS_option: {
-        title: {
-          text: 'JS错误'
-        },
         xAxis: {
           type: 'category',
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -167,9 +112,6 @@ export default {
         ]
       },
       API_option: {
-        title: {
-          text: 'API请求'
-        },
         xAxis: {
           type: 'category',
           boundaryGap: false
@@ -226,9 +168,6 @@ export default {
         ]
       },
       InSpeed_option: {
-        title: {
-          text: '访问速度'
-        },
         xAxis: {
           type: 'category',
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -307,15 +246,5 @@ export default {
 .card {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-}
-.new_data {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
 }
 </style>
