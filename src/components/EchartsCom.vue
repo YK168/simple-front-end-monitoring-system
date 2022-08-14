@@ -44,7 +44,7 @@ export default {
       default: '400'
     }
   },
-  data () {
+  data() {
     return {
       value1: ref([new Date() - 3600 * 1000 * 24 * 1, new Date()]),
       shortcuts: [
@@ -78,11 +78,11 @@ export default {
       ]
     }
   },
-  mounted () {
+  mounted() {
     this.init()
   },
   methods: {
-    init () {
+    init() {
       /* this.$refs.Echarts_container.style.width=parseInt(this.width)
       this.$refs.Echarts_container.style.height=parseInt(this.height) */
       const myEchart = echarts.init(this.$refs.Echarts_container, null, {
@@ -93,8 +93,7 @@ export default {
       myEchart.setOption(option)
     }
   },
-  watch: {
-  }
+  watch: {}
 }
 </script>
 
