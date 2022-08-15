@@ -1,11 +1,5 @@
 <template>
   <div class="home">
-    <div class="Top"></div>
-    <div class="Left">
-      <div class="all">总览</div>
-      <div class="detail">页面访问详情</div>
-      <div class="monitor">网络请求监控</div>
-    </div>
     <div class="middle">
       <div class="rank">网页访问量排行</div>
       <div class="HomePage">/home</div>
@@ -100,58 +94,15 @@ export default {
 <style lang="scss" scoped>
 .home {
   background-color: rgba(196, 193, 193, 0.425);
-  width: 100%;
-  height: 100%;
-  .Top {
-    width: 1920px;
-    height: 88px;
-    background-color: white;
-    border: 1px solid grey;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  .Left {
-    width: 258px;
-    height: 992px;
-    background-color: white;
-    border: 1px solid grey;
-    border-top: 0;
-    float: left;
-    position: fixed;
-    .all,
-    .detail,
-    .monitor {
-      width: 258px;
-      height: 61px;
-      border: 1px solid #797979;
-      border-radius: 0px;
-      font-size: 30px;
-      text-align: center;
-      line-height: 61px;
-      display: inline-block;
-      position: absolute;
-    }
-    .all {
-      background: white;
-      top: 30px;
-    }
-    .detail {
-      background: rgba(0, 0, 0, 0.61);
-      top: 129px;
-    }
-    .monitor {
-      background: white;
-      top: 231px;
-    }
-  }
+  width: 1600px;
+  position: absolute;
+  left:55px;
   .middle {
     width: 360px;
-    height: 993px;
+    height: 946px;
     background: #ffffff;
     border: 1px solid #797979;
     border-radius: 0px;
-    margin-left: 258px;
     display: inline-block;
     position: absolute;
     top: auto;
@@ -188,8 +139,7 @@ export default {
     border: 1px solid #797979;
     border-radius: 0px;
     background-color: white;
-    margin-left: 662px;
-    margin-top: 30px;
+    margin-left: 380px;
     display: inline-block;
     position: relative;
   }
@@ -231,7 +181,7 @@ export default {
     border: 1px solid #797979;
     border-radius: 0px;
     background-color: white;
-    margin-left: 662px;
+    margin-left: 380px;
     margin-top: 30px;
     position: relative;
     .options,

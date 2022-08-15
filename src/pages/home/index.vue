@@ -12,7 +12,6 @@
     <el-dialog
       v-model="isAddProject"
       title="新建项目"
-      :before-close="handleClose"
     >
       <el-form :model="form">
         <el-form-item label="项目名称" :label-width="formLabelWidth">
