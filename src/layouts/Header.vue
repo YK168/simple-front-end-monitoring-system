@@ -6,11 +6,7 @@
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <el-avatar
-            shape="square"
-            :size="40"
-            :src="userInfo?.avatar"
-          ></el-avatar>
+          <el-avatar shape="square" :size="40" :src="avatar"></el-avatar>
           <i class="el-icon-s-tools"></i>
         </div>
         <template #dropdown>
@@ -25,9 +21,15 @@
 
 <script setup>
 import { useUserStore } from '@/store/modules/user'
+import { clearUserStorage } from '../utils/userCache'
 
 const userStore = useUserStore()
-const userInfo = userStore.getUserInfo
+const avatar = userStore.getUserAvatar
+
+const logout = () => {
+  clearUserStorage()
+  userStore.logout()
+}
 </script>
 
 <style lang="scss" scoped>

@@ -52,3 +52,42 @@ div:focus {
     height: 0;
   }
 }
+
+.cus-padding{
+  padding: 30px;
+}
+.cus-radius{
+  border-radius: 20px;
+}
+
+.cus-flex{
+  display: flex;
+  flex-direction: row;
+}
+.cus-row-left{
+  justify-content: flex-end;
+}
+.cus-row-right{
+  justify-content:flex-end;
+}
+.cus-row-center{
+  justify-content: center;
+}
+.cus-row-around{
+  justify-content: space-around;
+}
+.cus-row-between{
+  justify-content: space-between;
+}
+.cus-col-left{
+  flex-direction: column;
+  align-items: flex-start;
+}
+.cus-col-right{
+  flex-direction: column;
+  align-items: flex-end;
+}
+.cus-col-center{
+  flex-direction: column;
+  align-items: center;
+}

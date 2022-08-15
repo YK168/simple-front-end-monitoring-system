@@ -14,7 +14,6 @@
 
 ```
 ├── src
-│    ├── api             // api请求
 │    ├── assets          // 静态文件
 │    ├── components      // 业务通用组件
 │    ├── layouts      	 // 布局组件
