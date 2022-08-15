@@ -21,5 +21,6 @@
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  background-color: #F5F5F5 ;
 }
 </style>
