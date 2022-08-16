@@ -1,65 +1,4 @@
 <template>
-  <!--  <div class="home">-->
-  <!--    <div class="middle">-->
-  <!--      <div class="rank">网页访问量排行</div>-->
-  <!--      <div class="HomePage">/home</div>-->
-  <!--      <div class="about">/about</div>-->
-  <!--    </div>-->
-  <!--    <div class="data">-->
-  <!--      <div class="PV">PV/UV</div>-->
-  <!--      <select v-model="selected" class="select1">-->
-  <!--        <option>今天</option>-->
-  <!--        <option>昨天</option>-->
-  <!--        <option>前天</option>-->
-  <!--      </select>-->
-  <!--      <echart-->
-  <!--        :option="API_option"-->
-  <!--        width="1217px"-->
-  <!--        height="497px"-->
-  <!--        class="data1"-->
-  <!--      ></echart>-->
-  <!--    </div>-->
-  <!--    <div class="exhibition">-->
-  <!--      <div class="title">-->
-  <!--        <div class="options">JS错误</div>-->
-  <!--        <select v-model="selected" class="select">-->
-  <!--          <option>A</option>-->
-  <!--          <option>B</option>-->
-  <!--          <option>C</option>-->
-  <!--        </select>-->
-  <!--        <div class="ErrorNumber">报错数：1</div>-->
-  <!--        <div class="ErrorRate">报错率：1%</div>-->
-  <!--        <table-->
-  <!--          border="1"-->
-  <!--          cellpadding="15"-->
-  <!--          cellspacing="0"-->
-  <!--          style="text-align: center"-->
-  <!--          class="table"-->
-  <!--        >-->
-  <!--          <tr>-->
-  <!--            <td width="267" height="40">错误信息</td>-->
-  <!--            <td width="267" height="40">报错时间</td>-->
-  <!--            <td width="267" height="40">报错位置</td>-->
-  <!--          </tr>-->
-  <!--          <tr>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--          </tr>-->
-  <!--          <tr>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--          </tr>-->
-  <!--          <tr>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--            <td width="267" height="40"></td>-->
-  <!--          </tr>-->
-  <!--        </table>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
   <div class="cus-flex cus-row-left">
     <div class="list">
       <div class="title">网页访问量排行</div>
@@ -79,7 +18,7 @@
         </select>
         <echart
           :option="API_option"
-          width="1217px"
+          width="870px"
           height="497px"
           class="data1"
         ></echart>
@@ -134,7 +73,7 @@ export default {
   components: {
     echart
   },
-  data() {
+  data () {
     return {
       API_option: {
         xAxis: {
@@ -200,9 +139,9 @@ export default {
   border-radius: 20px;
   background-color: white;
   .data {
-    width: 1217px;
+    width: 870px;
     height: 497px;
-    border: 1px solid #797979;
+    //border: 1px solid #797979;
     border-radius: 0px;
     background-color: white;
     display: inline-block;
@@ -241,7 +180,7 @@ export default {
     z-index: 1;
   }
   .exhibition {
-    width: 1217px;
+    width: 870px;
     height: 414px;
     border: 1px solid #797979;
     border-radius: 0px;
