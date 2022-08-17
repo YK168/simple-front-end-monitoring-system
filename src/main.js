@@ -12,4 +12,9 @@ const app = createApp(App)
 
 setupStore(app)
 
+/* */
+import axios from 'axios'
+app.config.globalProperties.$axios = axios
+/*  */
+
 app.use(ElementPlus).use(routers).mount('#app')

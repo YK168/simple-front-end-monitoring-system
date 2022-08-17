@@ -44,6 +44,7 @@ export default defineConfig({
       // 正则表达式写法
       '^/api': {
         target: 'http://hts0000.top:3001/', // 后端服务实际地址
+        //target:'http://172.23.130.64:8082/',
         changeOrigin: true, //开启代理
         rewrite: (path) => path.replace(/^\/api/, '')
       }
