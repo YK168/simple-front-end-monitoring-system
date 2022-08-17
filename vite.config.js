@@ -10,7 +10,7 @@ const resolve = (dirPath) => path.resolve(__dirname, dirPath)
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  lintOnSave:false, /*关闭语法检查*/
+  lintOnSave: false /* 关闭语法检查 */,
   plugins: [
     vue(),
     AutoImport({
@@ -38,14 +38,15 @@ export default defineConfig({
     }
   },
   server: {
-    open: true, //自动打开
-    base: "./ ", //生产环境路径
-    proxy: { // 本地开发环境通过代理实现跨域，生产环境使用 nginx 转发
+    open: true, // 自动打开
+    base: './ ', // 生产环境路径
+    proxy: {
+      // 本地开发环境通过代理实现跨域，生产环境使用 nginx 转发
       // 正则表达式写法
       '^/api': {
         target: 'http://hts0000.top:3001/', // 后端服务实际地址
-        //target:'http://172.23.130.64:8082/',
-        changeOrigin: true, //开启代理
+        // target:'http://172.23.130.64:8082/',
+        changeOrigin: true, // 开启代理
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }

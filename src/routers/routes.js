@@ -38,7 +38,9 @@ const routes = [
         path: '/pageDetail',
         name: 'pageDetail',
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/pages/overview/pageDetail.vue'),
+          import(
+            /* webpackChunkName: "pageDetail" */ '@/pages/overview/pageDetail.vue'
+          ),
         meta: {
           title: '页面访问详情',
           icon: 'el-icon-user'
@@ -48,23 +50,25 @@ const routes = [
         path: '/Monitor',
         name: 'Monitor',
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/pages/overview/apiMonitoring.vue'),
+          import(
+            /* webpackChunkName: "Monitor" */ '@/pages/overview/apiMonitoring.vue'
+          ),
         meta: {
           title: '网络请求监控',
           icon: 'el-icon-user'
         }
-      }
+      },
 
-      // {
-      //   path: '/about',
-      //   name: 'about',
-      //   component: () =>
-      //     import(/* webpackChunkName: "about" */ '@/pages/about/index.vue'),
-      //   meta: {
-      //     title: '关于',
-      //     icon: 'el-icon-user'
-      //   }
-      // }
+      {
+        path: '/about',
+        name: 'about',
+        component: () =>
+          import(/* webpackChunkName: "about" */ '@/pages/about/index.vue'),
+        meta: {
+          title: '关于',
+          icon: 'el-icon-user'
+        }
+      }
     ]
   }
 ]
