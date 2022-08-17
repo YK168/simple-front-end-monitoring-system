@@ -76,7 +76,7 @@ export default {
   components: {
     echart
   },
-  data () {
+  data() {
     return {
       flag: 0,
       P_U_V_option: {
@@ -109,7 +109,7 @@ export default {
           {
             type: 'category',
             boundaryGap: false,
-            data: ['1天', '2天', '3天']
+            data: ['1天', '2天', '3天', '2天', '3天']
           }
         ],
         yAxis: [
