@@ -30,78 +30,80 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import * as echarts from 'echarts'
-import { ref } from 'vue'
-export default {
-  props: {
-    width: {
-      type: String,
-      default: '600'
-    },
-    height: {
-      type: String,
-      default: '400'
+import { ref, reactive, computed, watch, getCurrentInstance } from 'vue'
+/********************************************************************/
+const props = defineProps({
+  width: {
+    type: String,
+    default: '600'
+  },
+  height: {
+    type: String,
+    default: '400'
+  },
+  option: {
+    type: Object
+  }
+})
+const value1 = ref([new Date() - 3600 * 1000 * 24 * 1, new Date()])
+let myEchart = ref()
+const shortcuts = [
+  {
+    text: 'Last week',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+      return [start, end]
     }
   },
-  data() {
-    return {
-      value1: ref([new Date() - 3600 * 1000 * 24 * 1, new Date()]),
-      shortcuts: [
-        {
-          text: 'Last week',
-          value: () => {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            return [start, end]
-          }
-        },
-        {
-          text: 'Last month',
-          value: () => {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            return [start, end]
-          }
-        },
-        {
-          text: 'Last 3 months',
-          value: () => {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            return [start, end]
-          }
-        }
-      ]
+  {
+    text: 'Last month',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+      return [start, end]
     }
   },
-  mounted() {
-    this.init()
-  },
-  methods: {
-    init() {
-      /* this.$refs.Echarts_container.style.width=parseInt(this.width)
-      this.$refs.Echarts_container.style.height=parseInt(this.height) */
-      const myEchart = echarts.init(this.$refs.Echarts_container, null, {
-        width: parseInt(this.width),
-        height: parseInt(this.height)
-      })
-      const option = this.$attrs.option
-      myEchart.setOption(option)
+  {
+    text: 'Last 3 months',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+      return [start, end]
     }
-  },
-  watch: {}
+  }
+]
+const emits = defineEmits(['acceptData'])
+/********************************************************************/
+onMounted(() => {
+  init()
+})
+
+watch(value1, () => {
+  emits('acceptData', [value1, myEchart])
+  console.log('value[0]---changed')
+})
+/********************************************************************/
+function init() {
+  myEchart = echarts.init(
+    getCurrentInstance().proxy.$refs.Echarts_container,
+    null,
+    {
+      width: parseInt(props.width),
+      height: parseInt(props.height)
+    }
+  )
+  let option = props.option
+  myEchart.setOption(option)
 }
 </script>
 
 <style lang="scss">
-.el-time-spinner:last-child {
-  background-color: burlywood;
-  display: none;
-}
 .block {
   position: absolute;
   top: 0px;

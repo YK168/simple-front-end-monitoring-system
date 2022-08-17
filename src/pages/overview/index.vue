@@ -2,7 +2,7 @@
   <div class="home">
     <div class="head">
       <div class="head_left">
-        <echart :option="P_U_V_option" @getData="acceptData()"></echart>
+        <echart :option="P_U_V_option" @acceptData="acceptData"></echart>
       </div>
       <div class="head_right">
         <div class="h_r_1th">
@@ -71,7 +71,6 @@
 <script>
 // @ is an alias to /src
 import echart from '../../components/EchartsCom.vue'
-
 export default {
   name: 'HomeView',
   components: {
@@ -79,6 +78,7 @@ export default {
   },
   data() {
     return {
+      flag: 0,
       P_U_V_option: {
         tooltip: {
           trigger: 'axis',
@@ -92,7 +92,7 @@ export default {
         legend: {
           left: 0,
           orient: 'vertical',
-          data: ['总PA', '总UA']
+          data: ['总PV', '总UV']
         },
         toolbox: {
           feature: {
@@ -109,7 +109,7 @@ export default {
           {
             type: 'category',
             boundaryGap: false,
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: ['1天', '2天', '3天']
           }
         ],
         yAxis: [
@@ -119,28 +119,28 @@ export default {
         ],
         series: [
           {
-            name: '总PA',
+            name: '总PV',
             type: 'line',
             stack: 'Total',
             areaStyle: {},
             emphasis: {
               focus: 'series'
             },
-            data: [220, 182, 191, 234, 290, 330, 310]
+            data: []
           },
           {
-            name: '总UA',
+            name: '总UV',
             type: 'line',
             stack: 'Total',
             label: {
-              show: true,
+              //show: true,
               position: 'top'
             },
             areaStyle: {},
             emphasis: {
               focus: 'series'
             },
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
+            data: []
           }
         ]
       },
@@ -247,17 +247,29 @@ export default {
     }
   },
   methods: {
-    /* acceptData (val) {
-      console.log(val + '******************')
+    acceptData(e) {
+      console.log('******************')
+      console.log(e[0].value)
+      console.log('////////////////')
+      console.log(e[0].value[0])
+      console.log(e[0].value[1])
       this.$axios
-        .get('/task/all')
+        .get(
+          'http://hts0000.top:3001/api/get/totalaccess?projectKey=17459aaf3a37a5c91e04a8dcccb8e993&startTime=1640966400&endTime=1643644800'
+        )
         .then((Response) => {
-          console.log('成功')
+          console.log(Response)
+          this.P_U_V_option.series[0].data = Response.data.data.PVData.Y
+          this.P_U_V_option.series[1].data = Response.data.data.UVData.Y
+          this.P_U_V_option.xAxis.data = Response.data.data.PVData.X
+          console.log('修改日期请求成功')
+          console.log(this.P_U_V_option.xAxis.data)
+          e[1].setOption(this.P_U_V_option)
         })
         .catch((error) => {
           console.log(error)
         })
-    } */
+    }
   },
   watch: {}
 }
