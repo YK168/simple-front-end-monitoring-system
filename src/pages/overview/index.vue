@@ -76,7 +76,7 @@ export default {
   components: {
     echart
   },
-  data() {
+  data () {
     return {
       flag: 0,
       P_U_V_option: {

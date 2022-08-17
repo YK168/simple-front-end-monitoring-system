@@ -17,3 +17,9 @@ export function toHome () {
     path: '/'
   })
 }
+
+export function toOverview () {
+  router.replace({
+    path: '/overview'
+  })
+}
