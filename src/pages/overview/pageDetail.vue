@@ -84,7 +84,7 @@
           class="data1"
         ></echart>
         <div class="exhibition">
-          <div class="title">
+          <div class="title" style="margin-bottom: 60px">
             <div class="options">JS错误</div>
             <select v-model="selected" class="select">
               <option>A</option>
@@ -93,34 +93,18 @@
             </select>
             <div class="ErrorNumber">报错数：1</div>
             <div class="ErrorRate">报错率：1%</div>
-            <table
-              border="1"
-              cellpadding="15"
-              cellspacing="0"
-              style="text-align: center"
-              class="table"
-            >
-              <tr>
-                <td width="267" height="40">错误信息</td>
-                <td width="267" height="40">报错时间</td>
-                <td width="267" height="40">报错位置</td>
-              </tr>
-              <tr>
-                <td width="267" height="40"></td>
-                <td width="267" height="40"></td>
-                <td width="267" height="40"></td>
-              </tr>
-              <tr>
-                <td width="267" height="40"></td>
-                <td width="267" height="40"></td>
-                <td width="267" height="40"></td>
-              </tr>
-              <tr>
-                <td width="267" height="40"></td>
-                <td width="267" height="40"></td>
-                <td width="267" height="40"></td>
-              </tr>
-            </table>
+          </div>
+          <div class="www">
+            <el-table
+            :data="tableData"
+            :row-style="{height:'70px'}"
+            style="font-size: 28px"
+            class="zxc"
+          >
+            <el-table-column prop="message" label="错误信息" width="267" />
+            <el-table-column prop="time" label="报错时间" width="267" />
+            <el-table-column prop="address" label="报错位置" width="267" />
+          </el-table>
           </div>
         </div>
       </div>
@@ -128,6 +112,7 @@
   </div>
 </template>
 <script>
+import { size } from 'lodash';
 import echart from '../../components/EchartsCom.vue'
 export default {
   name: 'HomeView',
@@ -162,12 +147,35 @@ export default {
           id: 2,
           url: 'http://ke_yang1024.cloud/color'
         }
+      ],
+      tableData: [
+        {
+          message: ' ',
+          time: ' ',
+          address: ' '
+        },
+        {
+          message: ' ',
+          time: ' ',
+          address: ' '
+        },
+        {
+          message: ' ',
+          time: ' ',
+          address: ' '
+        }
       ]
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.zxc {
+  line-height: 70px;
+}
+.www{
+  margin-left: 250px;
+}
 .list {
   min-height: calc(100vh - 100px);
   flex: 1;
@@ -247,7 +255,6 @@ export default {
     border-radius: 0px;
     background-color: white;
     margin-top: 30px;
-    position: relative;
     .options,
     .select,
     .ErrorNumber,
@@ -305,12 +312,6 @@ export default {
       right: 73px;
     }
     .table {
-      position: absolute;
-      margin: auto;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
     }
   }
 }
