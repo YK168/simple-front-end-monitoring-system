@@ -45,8 +45,8 @@ const routes = [
         }
       },
       {
-        path: '/apiMonitoring',
-        name: 'apiMonitoring',
+        path: '/Monitor',
+        name: 'Monitor',
         component: () =>
           import(/* webpackChunkName: "about" */ '@/pages/overview/apiMonitoring.vue'),
         meta: {

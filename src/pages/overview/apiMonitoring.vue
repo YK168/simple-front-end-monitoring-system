@@ -1,69 +1,70 @@
 <template>
-  <div class="home">
-    <div class="middle">
-      <div class="API">API请求</div>
-      <div class="list">
-        <div class="baidu">www.baidu.com</div>
-        <div class="taobao">www.taobao.com</div>
-        <div class="jd">www.jd.com</div>
-      </div>
-    </div>
-    <div class="data">
-      <echart
-        :option="API_option"
-        width="1217px"
-        height="497px"
-        class="data1"
-      ></echart>
-    </div>
-    <div class="exhibition">
-      <div class="title">
-        <div class="succeed">请求成功列表</div>
-        <div class="fail">请求成功列表</div>
-        <!-- <div class="options">请求失败列表</div> -->
-        <table
-          border="1"
-          cellpadding="15"
-          cellspacing="0"
-          style="text-align: center"
-          class="table"
-        >
-          <tr>
-            <td width="267" height="40">上报时间</td>
-            <td width="267" height="40">请求耗时</td>
-            <td width="267" height="40">API</td>
-            <td width="267" height="40">http状态码</td>
-          </tr>
-          <tr>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-          </tr>
-          <tr>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-          </tr>
-          <tr>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
+<!--  <div class="home">-->
+<!--    <div class="middle">-->
+<!--      <div class="API">API请求</div>-->
+<!--      <div class="list">-->
+<!--        <div class="baidu">www.baidu.com</div>-->
+<!--        <div class="taobao">www.taobao.com</div>-->
+<!--        <div class="jd">www.jd.com</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="data">-->
+<!--      <echart-->
+<!--        :option="API_option"-->
+<!--        width="1217px"-->
+<!--        height="497px"-->
+<!--        class="data1"-->
+<!--      ></echart>-->
+<!--    </div>-->
+<!--    <div class="exhibition">-->
+<!--      <div class="title">-->
+<!--        <div class="succeed">请求成功列表</div>-->
+<!--        <div class="fail">请求成功列表</div>-->
+<!--        &lt;!&ndash; <div class="options">请求失败列表</div> &ndash;&gt;-->
+<!--        <table-->
+<!--          border="1"-->
+<!--          cellpadding="15"-->
+<!--          cellspacing="0"-->
+<!--          style="text-align: center"-->
+<!--          class="table"-->
+<!--        >-->
+<!--          <tr>-->
+<!--            <td width="267" height="40">上报时间</td>-->
+<!--            <td width="267" height="40">请求耗时</td>-->
+<!--            <td width="267" height="40">API</td>-->
+<!--            <td width="267" height="40">http状态码</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--            <td width="267" height="40"></td>-->
+<!--          </tr>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div>6666</div>
 </template>
 <script>
-import echart from '../../components/EchartsCom.vue'
+// import echart from '../../components/EchartsCom.vue'
 export default {
   name: 'HomeView',
-  components: {
-    echart
-  },
+  // components: {
+  //   echart
+  // },
   data () {
     return {
       API_option: {
