@@ -70,13 +70,15 @@
 
 <script>
 // @ is an alias to /src
+import { useAppStore } from '@/store/modules/app'
 import echart from '../../components/EchartsCom.vue'
+import { getPVandUVdata } from '../../services/overview'
 export default {
   name: 'HomeView',
   components: {
     echart
   },
-  data() {
+  data () {
     return {
       flag: 0,
       P_U_V_option: {
@@ -133,7 +135,7 @@ export default {
             type: 'line',
             stack: 'Total',
             label: {
-              //show: true,
+              // show: true,
               position: 'top'
             },
             areaStyle: {},
@@ -247,28 +249,45 @@ export default {
     }
   },
   methods: {
-    acceptData(e) {
-      console.log('******************')
-      console.log(e[0].value)
-      console.log('////////////////')
-      console.log(e[0].value[0])
-      console.log(e[0].value[1])
-      this.$axios
-        .get(
-          'http://hts0000.top:3001/api/get/totalaccess?projectKey=17459aaf3a37a5c91e04a8dcccb8e993&startTime=1640966400&endTime=1643644800'
-        )
-        .then((Response) => {
-          console.log(Response)
-          this.P_U_V_option.series[0].data = Response.data.data.PVData.Y
-          this.P_U_V_option.series[1].data = Response.data.data.UVData.Y
-          this.P_U_V_option.xAxis.data = Response.data.data.PVData.X
-          console.log('修改日期请求成功')
-          console.log(this.P_U_V_option.xAxis.data)
-          e[1].setOption(this.P_U_V_option)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+    async acceptData (e) {
+      // console.log('******************')
+      // console.log(e[0].value)
+      // console.log('////////////////')
+      // console.log(e[0].value[0])
+      // console.log(e[0].value[1])
+      const userStore = useAppStore()
+      const { project_key } = userStore.getSelectProject
+      console.log(project_key)
+      const postData = {
+        // projectKey:project_key,
+        projectKey: '17459aaf3a37a5c91e04a8dcccb8e993',
+        startTime: 1640966400,
+        endTime: 1643644800
+      }
+      const { data } = await getPVandUVdata(postData)
+      // console.log('PV_UV',data)
+      this.P_U_V_option.series[0].data = data.PVData.Y
+      this.P_U_V_option.series[1].data = data.UVData.Y
+      this.P_U_V_option.xAxis[0].data = data.PVData.X
+      console.log('修改日期请求成功', this.P_U_V_option)
+      console.log(this.P_U_V_option)
+      e[1].setOption(this.P_U_V_option)
+      // this.$axios
+      //   .get(
+      //     'http://hts0000.top:3001/api/get/totalaccess?projectKey=17459aaf3a37a5c91e04a8dcccb8e993&startTime=1640966400&endTime=1643644800'
+      //   )
+      //   .then((Response) => {
+      //     console.log(Response)
+      //     this.P_U_V_option.series[0].data = Response.data.data.PVData.Y
+      //     this.P_U_V_option.series[1].data = Response.data.data.UVData.Y
+      //     this.P_U_V_option.xAxis.data = Response.data.data.PVData.X
+      //     console.log('修改日期请求成功')
+      //     console.log(this.P_U_V_option.xAxis.data)
+      //     e[1].setOption(this.P_U_V_option)
+      //   })
+      //   .catch((error) => {
+      //     console.log(error)
+      //   })
     }
   },
   watch: {}
