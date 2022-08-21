@@ -19,14 +19,8 @@
     </div>-->
     <!-- 日期选择组件 -->
     <div class="block">
-      <el-date-picker
-        v-model="value1"
-        type="datetimerange"
-        :shortcuts="shortcuts"
-        range-separator="To"
-        start-placeholder="Start date"
-        end-placeholder="End date"
-      />
+      <el-date-picker v-model="value1" type="datetimerange" :shortcuts="shortcuts" range-separator="To"
+        start-placeholder="Start date" end-placeholder="End date" />
     </div>
   </div>
 </template>
@@ -86,7 +80,7 @@ onMounted(() => {
 
 watch(value1, () => {
   emits('acceptData', [value1, myEchart])
-  console.log('value[0]---changed')
+  console.log('子组件日期变化（默认或被监听）')
 })
 /********************************************************************/
 function init() {
@@ -100,6 +94,11 @@ function init() {
   )
   let option = props.option
   myEchart.setOption(option)
+  console.log(option.get_MethodName)
+  /* *************************** */
+  console.log("----------------------------------")
+  console.log('默认的--初次提交子组件日期')
+  emits('acceptData', [value1, myEchart])
 }
 </script>
 
@@ -108,6 +107,7 @@ function init() {
   position: absolute;
   top: 0px;
 }
+
 /* .drop {
   position: absolute;
   top: 20px;
@@ -118,6 +118,7 @@ function init() {
   justify-content: center;
   position: relative;
 }
+
 /* .example-showcase .el-dropdown-link {
   cursor: pointer;
   color: var(--el-color-primary);
