@@ -35,6 +35,7 @@ const { path } = toRefs(props)
 const performanceOption = reactive({
   title: {
     text: '首次渲染耗时'
+
   },
   tooltip: {
     trigger: 'axis',
@@ -43,6 +44,9 @@ const performanceOption = reactive({
       label: {
         backgroundColor: '#6a7985'
       }
+    },
+    formatter: function (array) {
+      return array[0].value + '毫秒'
     }
   },
   legend: {
@@ -57,7 +61,8 @@ const performanceOption = reactive({
   ],
   yAxis: [
     {
-      type: 'value'
+      type: 'value',
+      name: '毫秒'
     }
   ],
   series: [
