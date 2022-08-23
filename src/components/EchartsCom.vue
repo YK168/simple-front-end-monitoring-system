@@ -27,7 +27,7 @@
 <script setup>
 import * as echarts from 'echarts'
 import { ref, watch, getCurrentInstance, onMounted } from 'vue'
-
+/********************************************************************/
 const props = defineProps({
   width: {
     type: String,
@@ -42,7 +42,7 @@ const props = defineProps({
   }
 })
 const value1 = ref([new Date() - 3600 * 1000 * 24 * 1, new Date()])
-let myEchart = ref()
+let myEchart = null
 const shortcuts = [
   {
     text: 'Last week',
