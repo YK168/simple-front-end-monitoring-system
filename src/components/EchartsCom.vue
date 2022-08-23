@@ -20,7 +20,7 @@
     <!-- 日期选择组件 -->
     <div class="block">
       <el-date-picker v-model="value1" type="datetimerange" :shortcuts="shortcuts" range-separator="To"
-        start-placeholder="Start date" end-placeholder="End date" value-format="x"  @change='changeDate' />
+        start-placeholder="Start date" end-placeholder="End date" value-format="x" @change='changeDate' />
     </div>
   </div>
 </template>
@@ -89,11 +89,11 @@ watch([() => value1, props.option], ([newValue1, newOption], [oldValue, oldOptio
   //   console.log('子组件日期变化（默认或被监听）')
   // }
   if (newOption) {
-    myEchart.value.setOption(newOption)
+    myEchart.setOption(newOption)
   }
 })
 /********************************************************************/
-function init () {
+function init() {
   myEchart = echarts.init(
     getCurrentInstance().proxy.$refs.Echarts_container,
     null,
@@ -103,12 +103,12 @@ function init () {
     }
   )
   const option = props.option
-  myEchart.value.setOption(option)
+  myEchart.setOption(option)
   console.log(option.get_MethodName)
   /* *************************** */
   console.log('----------------------------------')
   console.log('默认的--初次提交子组件日期')
-  // emits('acceptData', [value1, myEchart])
+  emits('acceptData', [value1, myEchart])
 }
 
 const changeDate = () => {

@@ -24,7 +24,7 @@ export function getAPIdata (data) {
  * 预留数据
  */
 export function getInspeedData (data) {
-  return Request.get(paramParse('api/get/access/total', data))
+  return Request.get(paramParse('api/get/performance/total', data))
 }
 
 /**

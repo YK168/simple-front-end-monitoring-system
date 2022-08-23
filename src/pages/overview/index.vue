@@ -5,6 +5,12 @@
         <echart :option="P_U_V_option" @acceptData="acceptData"></echart>
       </div>
       <div class="head_right">
+
+        <div class="datail_value_select">
+          <el-date-picker v-model="value2" type="datetimerange" :shortcuts="shortcuts2" range-separator="To"
+            start-placeholder="Start date" end-placeholder="End date" value-format="x" @change='changeDate' />
+        </div>
+
         <div class="h_r_head">
           <div class="h_r_11th">
             <el-card shadow="always" class="card">
@@ -108,6 +114,36 @@ export default {
   },
   data() {
     return {
+      value2: [new Date().getTime() - 3600 * 1000 * 24 * 1, new Date().getTime()],
+      shortcuts2: [
+        {
+          text: 'Last week',
+          value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            return [start, end]
+          }
+        },
+        {
+          text: 'Last month',
+          value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            return [start, end]
+          }
+        },
+        {
+          text: 'Last 3 months',
+          value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            return [start, end]
+          }
+        }
+      ],
       FirstRenderCostTime: 0,
       allPV: 0,
       allUV: 0,
@@ -357,21 +393,24 @@ export default {
           e[1].setOption(this.API_option)
           break;
         }
-        /*
-        case 'getInspeedData':{
+        case 'getInspeedData': {
           const { data } = await getInspeedData(postData)
-          this.InSpeed_option.series[0].data = data.PVData.Y
-          this.InSpeed_option.xAxis[0].data = data.PVData.X
+          /* this.InSpeed_option.series[0].data = data.PVData.Y
+          this.InSpeed_option.xAxis[0].data = data.PVData.X */
           e[1].setOption(this.InSpeed_option)
+          break;
         }
-        */
         default: {
           console.log('找不到该表的API请求')
         }
       }
     }
   },
-  watch: {}
+  watch: {
+    value2: async function () {
+
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
