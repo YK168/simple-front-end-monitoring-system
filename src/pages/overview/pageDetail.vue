@@ -21,6 +21,9 @@
       <div class='data'>
         <performance_echarts :path='selected'/>
       </div>
+      <div class='data'>
+        <sourceerror_echarts :path='selected'/>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +32,7 @@ import { onMounted, ref } from 'vue'
 import PV_UV_echarts from './components/PV_UV_echarts.vue'
 import jsErrorTable from './components/jsErrorTable.vue'
 import performance_echarts from './components/performance_echarts.vue'
+import sourceerror_echarts from './components/sourceerror_echarts.vue'
 
 import { getAccessRank } from '../../services/overview'
 import { useAppStore } from '@/store/modules/app'
