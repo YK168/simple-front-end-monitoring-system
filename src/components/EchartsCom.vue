@@ -49,7 +49,7 @@ const props = defineProps({
   }
 })
 const value1 = ref([new Date() - 3600 * 1000 * 24 * 1, new Date()])
-let myEchart = ref('6')
+let myEchart = ref()
 const shortcuts = [
   {
     text: 'Last week',
