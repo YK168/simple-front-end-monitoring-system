@@ -34,7 +34,7 @@
 <script setup>
 import * as echarts from 'echarts'
 import { ref, watch, getCurrentInstance, onMounted } from 'vue'
-
+/********************************************************************/
 const props = defineProps({
   width: {
     type: String,
@@ -49,7 +49,7 @@ const props = defineProps({
   }
 })
 const value1 = ref([new Date() - 3600 * 1000 * 24 * 1, new Date()])
-let myEchart = ref()
+let myEchart = null
 const shortcuts = [
   {
     text: 'Last week',
@@ -87,7 +87,7 @@ onMounted(() => {
 
 watch([() => value1, props.option], ([newValue1, newOption], [oldValue, oldOption]) => {
   if (newOption && myEchart) {
-    myEchart.value.setOption(newOption)
+    myEchart.setOption(newOption)
   }
 })
 /********************************************************************/
@@ -101,7 +101,7 @@ function init () {
     }
   )
   const option = props.option
-  myEchart.value.setOption(option)
+  myEchart.setOption(option)
   emits('acceptData', [value1, myEchart])
 }
 
