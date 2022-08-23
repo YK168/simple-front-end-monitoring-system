@@ -5,27 +5,45 @@
         <echart :option="P_U_V_option" @acceptData="acceptData"></echart>
       </div>
       <div class="head_right">
-        <div class="h_r_1th">
-          <el-card shadow="always" class="card">
-            <div class="new_data">
-              <el-button type="success" link>0ms</el-button>
-            </div>
-            <div>
-              <el-button type="primary" link>首次渲染耗时</el-button>
-            </div>
-          </el-card>
+        <div class="h_r_head">
+          <div class="h_r_11th">
+            <el-card shadow="always" class="card">
+              <div class="new_data">
+                <el-button type="success" link>{{ FirstRenderCostTime }}ms</el-button>
+              </div>
+              <div>
+                <el-button type="primary" link>首次渲染耗时</el-button>
+              </div>
+            </el-card>
+          </div>
+          <div class="h_r_12th">
+            <el-card shadow="always" class="card">
+              <div class="new_data">
+                <el-button type="success" link>{{ allPV }}</el-button>
+              </div>
+              <div class="new_data">
+                <el-button type="primary" link>总PV</el-button>
+              </div>
+              <div class="new_data">
+                <el-button type="success" link>{{ allUV }}</el-button>
+              </div>
+              <div class="new_data">
+                <el-button type="primary" link>总UV</el-button>
+              </div>
+            </el-card>
+          </div>
         </div>
         <div class="h_r_center">
           <div class="h_r_2th">
             <el-card shadow="always" class="card">
               <div class="new_data">
-                <el-button type="danger" link>10</el-button>
+                <el-button type="danger" link>{{ JSErrorCount }}</el-button>
               </div>
               <div>
                 <el-button type="primary" link>JS错误数</el-button>
               </div>
               <div class="new_data">
-                <el-button type="danger" link>80%</el-button>
+                <el-button type="danger" link>{{ JSErrorRate }}%</el-button>
               </div>
               <div>
                 <el-button type="primary" link>JS错误率</el-button>
@@ -35,13 +53,13 @@
           <div class="h_r_3th">
             <el-card shadow="always" class="card">
               <div class="new_data">
-                <el-button type="danger" link>6</el-button>
+                <el-button type="danger" link>{{ APIErrorCount }}</el-button>
               </div>
               <div>
                 <el-button type="primary" link>API错误数</el-button>
               </div>
               <div class="new_data">
-                <el-button type="danger" link>10%</el-button>
+                <el-button type="danger" link>{{ APIErrorRate }}%</el-button>
               </div>
               <div>
                 <el-button type="primary" link>API错误率</el-button>
@@ -52,7 +70,7 @@
         <div class="h_r_4th">
           <el-card shadow="always" class="card">
             <div class="new_data">
-              <el-button type="danger" link>5次</el-button>
+              <el-button type="danger" link>{{ ResourceLoadingError }}次</el-button>
             </div>
             <div>
               <el-button type="primary" link>资源加载错误</el-button>
@@ -90,6 +108,14 @@ export default {
   },
   data() {
     return {
+      FirstRenderCostTime: 0,
+      allPV: 0,
+      allUV: 0,
+      JSErrorCount: 0,
+      JSErrorRate: 0,
+      APIErrorCount: 0,
+      APIErrorRate: 0,
+      ResourceLoadingError: 0,
       P_U_V_option: {
         title: {
           text: 'P_U_V'
@@ -313,6 +339,7 @@ export default {
           this.P_U_V_option.series[1].data = data.UVData.Y
           this.P_U_V_option.xAxis[0].data = data.PVData.X
           e[1].setOption(this.P_U_V_option)
+
           break;
         }
         case 'getJsErrorData': {
@@ -348,6 +375,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .home {
   display: flex;
   flex-flow: column nowrap;
@@ -361,9 +397,21 @@ export default {
     .head_right {
       width: 400px;
 
-      .h_r_1th {
-        height: 100px;
+      .h_r_head {
+        display: flex;
+        flex-flow: row nowrap;
+
+        .h_r_11th {
+          height: 100px;
+          width: 200px;
+        }
+
+        .h_r_12th {
+          height: 100px;
+          width: 200px;
+        }
       }
+
 
       .h_r_center {
         display: flex;
@@ -398,15 +446,6 @@ export default {
     flex-flow: row nowrap;
     justify-content: center;
   }
-}
-
-.card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
 }
 
 .new_data {
