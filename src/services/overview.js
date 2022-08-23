@@ -54,3 +54,10 @@ export function getJSerrorByPage (data) {
 export function getperformanceByPage (data) {
   return Request.get(paramParse('/api/get/performance/page', data))
 }
+
+/**
+ * 按页面获取sourceerror信息
+ */
+export function getSourceerrorByPage (data) {
+  return Request.get(paramParse('/api/get/sourceerror/page', data))
+}

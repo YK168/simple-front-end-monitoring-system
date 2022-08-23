@@ -19,8 +19,15 @@
     </div>-->
     <!-- 日期选择组件 -->
     <div class="block">
-      <el-date-picker v-model="value1" type="datetimerange" :shortcuts="shortcuts" range-separator="To"
-        start-placeholder="Start date" end-placeholder="End date" value-format="x"  @change='changeDate' />
+      <el-date-picker
+        v-model="value1"
+        type="datetimerange"
+        :shortcuts="shortcuts"
+        range-separator="To"
+        start-placeholder="Start date"
+        end-placeholder="End date"
+        @change='changeDate'
+      />
     </div>
   </div>
 </template>
@@ -41,8 +48,8 @@ const props = defineProps({
     type: Object
   }
 })
-const value1 = ref([new Date().getTime() - 3600 * 1000 * 24 * 1, new Date().getTime()])
-let myEchart = ref()
+const value1 = ref([new Date() - 3600 * 1000 * 24 * 1, new Date()])
+let myEchart = ref('6')
 const shortcuts = [
   {
     text: 'Last week',
@@ -78,17 +85,8 @@ onMounted(() => {
   init()
 })
 
-// watch(value1, () => {
-//   emits('acceptData', [value1, myEchart])
-//   console.log('子组件日期变化（默认或被监听）')
-// })
-
 watch([() => value1, props.option], ([newValue1, newOption], [oldValue, oldOption]) => {
-  // if(newValue1){
-  //   emits('acceptData', [value1, myEchart])
-  //   console.log('子组件日期变化（默认或被监听）')
-  // }
-  if (newOption) {
+  if (newOption && myEchart) {
     myEchart.value.setOption(newOption)
   }
 })
@@ -104,14 +102,11 @@ function init () {
   )
   const option = props.option
   myEchart.value.setOption(option)
-  console.log(option.get_MethodName)
-  /* *************************** */
-  console.log('----------------------------------')
-  console.log('默认的--初次提交子组件日期')
-  // emits('acceptData', [value1, myEchart])
+  emits('acceptData', [value1, myEchart])
 }
 
 const changeDate = () => {
+  console.log('改变了时间')
   emits('acceptData', [value1, myEchart])
 }
 </script>
@@ -121,7 +116,6 @@ const changeDate = () => {
   position: absolute;
   top: 0px;
 }
-
 /* .drop {
   position: absolute;
   top: 20px;
@@ -132,7 +126,6 @@ const changeDate = () => {
   justify-content: center;
   position: relative;
 }
-
 /* .example-showcase .el-dropdown-link {
   cursor: pointer;
   color: var(--el-color-primary);

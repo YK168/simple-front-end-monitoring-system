@@ -10,7 +10,7 @@
         />
       </el-select>
     </div>
-    <echart width='800' :option="performanceOption" @acceptData="acceptData_performance"/>
+    <echart width='900' :option="performanceOption" @acceptData="acceptData_performance"/>
   </div>
 </template>
 
@@ -111,6 +111,7 @@ let endTime = Math.floor(new Date().getTime() / 1000)
 
 // 获取页面的pv、uv数据
 const performanceData = async (path) => {
+  if (!path.value) return
   const postData = {
     projectKey: project_key,
     startTime,
