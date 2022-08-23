@@ -34,7 +34,7 @@
 <script setup>
 import * as echarts from 'echarts'
 import { ref, watch, getCurrentInstance, onMounted } from 'vue'
-/********************************************************************/
+
 const props = defineProps({
   width: {
     type: String,
