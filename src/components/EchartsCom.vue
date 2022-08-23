@@ -19,21 +19,8 @@
     </div>-->
     <!-- 日期选择组件 -->
     <div class="block">
-<<<<<<< HEAD
       <el-date-picker v-model="value1" type="datetimerange" :shortcuts="shortcuts" range-separator="To"
         start-placeholder="Start date" end-placeholder="End date" @change='changeDate' />
-=======
-      <el-date-picker
-        v-model="value1"
-        type="datetimerange"
-        :shortcuts="shortcuts"
-        range-separator="To"
-        start-placeholder="Start date"
-        end-placeholder="End date"
-        value-format="x"
-        @change='changeDate'
-      />
->>>>>>> 8bf6975faa29dc0cd175d43e38778e900fdb44d7
     </div>
   </div>
 </template>

@@ -33,7 +33,7 @@ export function getSourceErrorData (data) {
   return Request.get(paramParse('api/get/sourceerror/total', data))
 }
 
-/* ////////////////////////////页面详情数据：////////////////////////////////// */
+/* ////////////////////////////页面详情数据：///////////////////////////////// */
 /**
  * 获取页面访问排行
  */

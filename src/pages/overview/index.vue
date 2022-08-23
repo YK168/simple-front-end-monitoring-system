@@ -5,12 +5,10 @@
         <echart :option="P_U_V_option" @acceptData="acceptData"></echart>
       </div>
       <div class="head_right">
-
         <div class="datail_value_select">
           <el-date-picker v-model="value2" type="datetimerange" :shortcuts="shortcuts2" range-separator="To"
             start-placeholder="Start date" end-placeholder="End date" value-format="x" @change='changeDate2' />
         </div>
-
         <div class="h_r_head">
           <div class="h_r_11th">
             <el-card shadow="always" class="card">
@@ -106,7 +104,6 @@ import echart from '../../components/EchartsCom.vue'
 import { getPVandUVdata, getJsErrorData, getAPIdata, getInspeedData, getSourceErrorData } from '../../services/overview'
 export default {
   Created() {
-
   },
   name: 'HomeView',
   components: {
@@ -404,7 +401,6 @@ export default {
   },
   methods: {
     async acceptData(e) {
-
       console.log('父组件收到日期变化emit')
       console.log('开始日期 :' + (e[0].value[0] * 1).toString().slice(0, 10))
       console.log('结束日期 :' + (e[0].value[1] * 1).toString().slice(0, 10))
@@ -498,7 +494,6 @@ export default {
         data = data.data
         this.FirstRenderCostTime = data.FirstRunderTime
       }
-
     }
   }
 }
