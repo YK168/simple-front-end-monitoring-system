@@ -26,6 +26,7 @@
         range-separator="To"
         start-placeholder="Start date"
         end-placeholder="End date"
+        value-format="x"
         @change='changeDate'
       />
     </div>
@@ -52,7 +53,7 @@ const value1 = ref([new Date() - 3600 * 1000 * 24 * 1, new Date()])
 let myEchart = null
 const shortcuts = [
   {
-    text: 'Last week',
+    text: '上周',
     value: () => {
       const end = new Date()
       const start = new Date()
@@ -61,7 +62,7 @@ const shortcuts = [
     }
   },
   {
-    text: 'Last month',
+    text: '上个月',
     value: () => {
       const end = new Date()
       const start = new Date()
@@ -70,7 +71,7 @@ const shortcuts = [
     }
   },
   {
-    text: 'Last 3 months',
+    text: '最近三个月',
     value: () => {
       const end = new Date()
       const start = new Date()

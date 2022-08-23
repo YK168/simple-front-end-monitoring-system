@@ -61,3 +61,10 @@ export function getperformanceByPage (data) {
 export function getSourceerrorByPage (data) {
   return Request.get(paramParse('/api/get/sourceerror/page', data))
 }
+
+/**
+ * 按页面获取blank信息(白屏异常)
+ */
+export function getBlankByPage (data) {
+  return Request.get(paramParse('/api/get/blank/page', data))
+}
