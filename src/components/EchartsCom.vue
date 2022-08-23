@@ -19,8 +19,21 @@
     </div>-->
     <!-- 日期选择组件 -->
     <div class="block">
+<<<<<<< HEAD
       <el-date-picker v-model="value1" type="datetimerange" :shortcuts="shortcuts" range-separator="To"
         start-placeholder="Start date" end-placeholder="End date" @change='changeDate' />
+=======
+      <el-date-picker
+        v-model="value1"
+        type="datetimerange"
+        :shortcuts="shortcuts"
+        range-separator="To"
+        start-placeholder="Start date"
+        end-placeholder="End date"
+        value-format="x"
+        @change='changeDate'
+      />
+>>>>>>> 8bf6975faa29dc0cd175d43e38778e900fdb44d7
     </div>
   </div>
 </template>
@@ -45,7 +58,7 @@ const value1 = ref([new Date() - 3600 * 1000 * 24 * 1, new Date()])
 let myEchart = null
 const shortcuts = [
   {
-    text: 'Last week',
+    text: '上周',
     value: () => {
       const end = new Date()
       const start = new Date()
@@ -54,7 +67,7 @@ const shortcuts = [
     }
   },
   {
-    text: 'Last month',
+    text: '上个月',
     value: () => {
       const end = new Date()
       const start = new Date()
@@ -63,7 +76,7 @@ const shortcuts = [
     }
   },
   {
-    text: 'Last 3 months',
+    text: '最近三个月',
     value: () => {
       const end = new Date()
       const start = new Date()
