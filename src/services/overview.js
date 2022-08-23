@@ -21,12 +21,19 @@ export function getAPIdata (data) {
   return Request.get(paramParse('api/get/apierror/total', data))
 }
 /**
- * 预留数据
+ * 获取访问速度数据
  */
 export function getInspeedData (data) {
   return Request.get(paramParse('api/get/performance/total', data))
 }
+/**
+ * 获取sourceerror数据
+ */
+export function getSourceErrorData (data) {
+  return Request.get(paramParse('api/get/sourceerror/total', data))
+}
 
+/* ////////////////////////////页面详情数据：////////////////////////////////// */
 /**
  * 获取页面访问排行
  */

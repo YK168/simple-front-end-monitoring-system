@@ -8,7 +8,7 @@
 
         <div class="datail_value_select">
           <el-date-picker v-model="value2" type="datetimerange" :shortcuts="shortcuts2" range-separator="To"
-            start-placeholder="Start date" end-placeholder="End date" value-format="x" @change='changeDate' />
+            start-placeholder="Start date" end-placeholder="End date" value-format="x" @change='changeDate2' />
         </div>
 
         <div class="h_r_head">
@@ -103,7 +103,7 @@
 // @ is an alias to /src
 import { useAppStore } from '@/store/modules/app'
 import echart from '../../components/EchartsCom.vue'
-import { getPVandUVdata, getJsErrorData, getAPIdata, getInspeedData } from '../../services/overview'
+import { getPVandUVdata, getJsErrorData, getAPIdata, getInspeedData, getSourceErrorData } from '../../services/overview'
 export default {
   Created() {
 
@@ -324,11 +324,26 @@ export default {
         title: {
           text: '访问速度'
         },
+        tooltip: {
+          trigger: 'axis',
+        },
+        legend: {
+          top: '40',
+          left: '10%',
+          orient: 'horizontal',
+          data: ['FMPTime', '渲染耗时', 'InteractableTime', 'Dom加载耗时', '完全加载耗时', '白屏耗时']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
         xAxis: [
           {
             type: 'category',
             boundaryGap: false,
-            data: []
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
           }
         ],
         yAxis: [
@@ -338,39 +353,80 @@ export default {
         ],
         series: [
           {
+            name: 'FMPTime',
             type: 'line',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: [],
-            showBackground: true,
-            backgroundStyle: {
-              color: 'rgba(180, 180, 180, 0.2)'
-            }
+            stack: 'Total',
+            data: [120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+            name: '渲染耗时',
+            type: 'line',
+            stack: 'Total',
+            data: [220, 182, 191, 234, 290, 330, 310]
+          },
+          {
+            name: 'InteractableTime',
+            type: 'line',
+            stack: 'Total',
+            data: [150, 232, 201, 154, 190, 330, 410]
+          },
+          {
+            name: 'Dom加载耗时',
+            type: 'line',
+            stack: 'Total',
+            data: [320, 332, 301, 334, 390, 330, 320]
+          },
+          {
+            name: '完全加载耗时',
+            type: 'line',
+            stack: 'Total',
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
+          },
+          {
+            name: '白屏耗时',
+            type: 'line',
+            stack: 'Total',
+            data: [810, 832, 801, 834, 290, 1030, 1020]
           }
         ]
+      },
+      postData: {
+        projectKey: '',
+        startTime: 0,
+        endTime: 0
+      },
+      postData2: {
+        projectKey: '',
+        startTime: 0,
+        endTime: 0
       }
     }
   },
   methods: {
     async acceptData(e) {
+
       console.log('父组件收到日期变化emit')
       console.log('开始日期 :' + (e[0].value[0] * 1).toString().slice(0, 10))
       console.log('结束日期 :' + (e[0].value[1] * 1).toString().slice(0, 10))
       const userStore = useAppStore()
       const { project_key } = userStore.getSelectProject
-      //console.log(project_key)
-      const postData = {//目前还只能填startTime: 1640966400, endTime: 1643644800
-        // projectKey:project_key,
-        projectKey: '17459aaf3a37a5c91e04a8dcccb8e993',
-        startTime: 1640966400,
-        endTime: 1643644800
+      console.log(project_key)
+      this.postData = {//目前还只能填startTime: 1640966400, endTime: 1643644800
+        projectKey: project_key,
+        //projectKey: '17459aaf3a37a5c91e04a8dcccb8e993',
+        startTime: Number((e[0].value[0] * 1).toString().slice(0, 10)),
+        endTime: Number((e[0].value[1] * 1).toString().slice(0, 10))
       }
+
+      // 表格和卡片的projectKey相同
+      this.postData2.projectKey = project_key
+      this.changeDate2()
+
       const InstenceGetMethod = e[1].getOption().get_MethodName.toString()
       switch (InstenceGetMethod) {
         case 'getPVandUVdata': {
-          const { data } = await getPVandUVdata(postData)
+          const { data } = await getPVandUVdata(this.postData)
+          if (!data) { break }
           this.P_U_V_option.series[0].data = data.PVData.Y
           this.P_U_V_option.series[1].data = data.UVData.Y
           this.P_U_V_option.xAxis[0].data = data.PVData.X
@@ -379,14 +435,16 @@ export default {
           break;
         }
         case 'getJsErrorData': {
-          const { data } = await getJsErrorData(postData)
+          const { data } = await getJsErrorData(this.postData)
+          if (!data) { break }
           this.JS_option.series[0].data = data.Data.Y
           this.JS_option.xAxis[0].data = data.Data.X
           e[1].setOption(this.JS_option)
           break;
         }
         case 'getAPIdata': {
-          const { data } = await getAPIdata(postData)
+          const { data } = await getAPIdata(this.postData)
+          if (!data) { break }
           this.API_option.series[0].data = data.ErrCnt.Y
           this.API_option.series[1].data = data.SuccCnt.Y
           this.API_option.xAxis[0].data = data.ErrCnt.X
@@ -394,9 +452,14 @@ export default {
           break;
         }
         case 'getInspeedData': {
-          const { data } = await getInspeedData(postData)
-          /* this.InSpeed_option.series[0].data = data.PVData.Y
-          this.InSpeed_option.xAxis[0].data = data.PVData.X */
+          const { data } = await getInspeedData(this.postData)
+          if (!data) { break }
+          this.InSpeed_option.xAxis[0].data = data.FMPTime.X
+          this.InSpeed_option.series[1].data = data.RunderTime.Y
+          this.InSpeed_option.series[2].data = data.InteractableTime.Y
+          this.InSpeed_option.series[3].data = data.DomReadyTime.Y
+          this.InSpeed_option.series[4].data = data.LoadCompleteTime.Y
+          this.InSpeed_option.series[5].data = data.BlankTime.Y
           e[1].setOption(this.InSpeed_option)
           break;
         }
@@ -404,10 +467,37 @@ export default {
           console.log('找不到该表的API请求')
         }
       }
-    }
-  },
-  watch: {
-    value2: async function () {
+    },
+    async changeDate2() {
+      this.postData2.startTime = Number((this.value2[0] * 1).toString().slice(0, 10))
+      this.postData2.endTime = Number((this.value2[1] * 1).toString().slice(0, 10))
+      let data = await getPVandUVdata(this.postData2)
+      if (data) {
+        data = data.data
+        this.allPV = data.TotalPV
+        this.allUV = data.TotalUV
+      }
+      data = await getAPIdata(this.postData2)
+      if (data) {
+        data = data.data
+        this.APIErrorCount = data.TotalErr
+        this.APIErrorRate = data.TotalErrRate
+      }
+      data = await getJsErrorData(this.postData2)
+      if (data) {
+        data = data.data
+        this.JSErrorCount = data.TotalErr
+      }
+      data = await getSourceErrorData(this.postData2)
+      if (data) {
+        data = data.data
+        this.ResourceLoadingError = data.TotalErr
+      }
+      data = await getInspeedData(this.postData2)
+      if (data) {
+        data = data.data
+        this.FirstRenderCostTime = data.FirstRunderTime
+      }
 
     }
   }
