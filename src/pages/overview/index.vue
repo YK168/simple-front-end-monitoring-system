@@ -46,12 +46,12 @@
               <div>
                 <el-button type="primary" link>JS错误数</el-button>
               </div>
-              <div class="new_data">
-                <el-button type="danger" link>{{ JSErrorRate }}%</el-button>
+              <!-- <div class="new_data">
+                <el-button type="danger" link>{{ blankRate }}%</el-button>
               </div>
               <div>
-                <el-button type="primary" link>JS错误率</el-button>
-              </div>
+                <el-button type="primary" link>白屏率</el-button>
+              </div> -->
             </el-card>
           </div>
           <div class="h_r_3th">
@@ -101,7 +101,7 @@
 // @ is an alias to /src
 import { useAppStore } from '@/store/modules/app'
 import echart from '../../components/EchartsCom.vue'
-import { getPVandUVdata, getJsErrorData, getAPIdata, getInspeedData, getSourceErrorData } from '../../services/overview'
+import { getPVandUVdata, getJsErrorData, getAPIdata, getInspeedData, getSourceErrorData, getBlankByPage } from '../../services/overview'
 export default {
   Created() {
   },
@@ -114,7 +114,7 @@ export default {
       value2: [new Date().getTime() - 3600 * 1000 * 24 * 1, new Date().getTime()],
       shortcuts2: [
         {
-          text: 'Last week',
+          text: '上周',
           value: () => {
             const end = new Date()
             const start = new Date()
@@ -123,7 +123,7 @@ export default {
           }
         },
         {
-          text: 'Last month',
+          text: '上个月',
           value: () => {
             const end = new Date()
             const start = new Date()
@@ -132,7 +132,7 @@ export default {
           }
         },
         {
-          text: 'Last 3 months',
+          text: '最近三个月',
           value: () => {
             const end = new Date()
             const start = new Date()
@@ -145,7 +145,7 @@ export default {
       allPV: 0,
       allUV: 0,
       JSErrorCount: 0,
-      JSErrorRate: 0,
+      //blankRate: 0,
       APIErrorCount: 0,
       APIErrorRate: 0,
       ResourceLoadingError: 0,
@@ -220,6 +220,11 @@ export default {
         ]
       },
       JS_option: {
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
         get_MethodName: "getJsErrorData",
         title: {
           text: 'JS错误'
@@ -252,6 +257,11 @@ export default {
         ]
       },
       API_option: {
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
         title: {
           text: 'API请求',
         },
@@ -317,6 +327,11 @@ export default {
         ]
       },
       InSpeed_option: {
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
         get_MethodName: "getInspeedData",
         title: {
           text: '访问速度'
@@ -328,7 +343,7 @@ export default {
           top: '40',
           left: '10%',
           orient: 'horizontal',
-          data: ['FMPTime', '渲染耗时', 'InteractableTime', 'Dom加载耗时', '完全加载耗时', '白屏耗时']
+          data: ['首屏时间', '首次渲染耗时', '首次可交互', 'DomReady', '完全加载耗时', '白屏耗时']
         },
         grid: {
           left: '3%',
@@ -350,25 +365,25 @@ export default {
         ],
         series: [
           {
-            name: 'FMPTime',
+            name: '首屏时间',
             type: 'line',
             stack: 'Total',
             data: [120, 132, 101, 134, 90, 230, 210]
           },
           {
-            name: '渲染耗时',
+            name: '首次渲染耗时',
             type: 'line',
             stack: 'Total',
             data: [220, 182, 191, 234, 290, 330, 310]
           },
           {
-            name: 'InteractableTime',
+            name: '首次可交互',
             type: 'line',
             stack: 'Total',
             data: [150, 232, 201, 154, 190, 330, 410]
           },
           {
-            name: 'Dom加载耗时',
+            name: 'DomReady',
             type: 'line',
             stack: 'Total',
             data: [320, 332, 301, 334, 390, 330, 320]
@@ -494,6 +509,11 @@ export default {
         data = data.data
         this.FirstRenderCostTime = data.FirstRunderTime
       }
+      /* data = await getBlankByPage(this.postData2)
+      if (data) {
+        data = data.data
+        this.blankRate = data.BlankRate
+      } */
     }
   }
 }
@@ -517,6 +537,8 @@ export default {
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
+    background-color: white;
 
     .head_right {
       width: 400px;
@@ -560,15 +582,20 @@ export default {
 
   .body {
     margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+    border-radius: 20px;
+    background-color: white;
   }
 
   .foot {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+    border-radius: 20px;
+    background-color: white;
   }
 }
 
