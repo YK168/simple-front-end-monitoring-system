@@ -75,3 +75,17 @@ export function getSourceerrorByPage (data) {
 export function getBlankByPage (data) {
   return Request.get(paramParse('/api/get/blank/page', data))
 }
+
+/**
+ * 获取API排行榜数据
+ */
+export function getAPIrank (data) {
+  return Request.get(paramParse('/api/get/api/rank', data))
+}
+
+/**
+ * 按页面获取apiIErrPage数据
+ */
+export function getApiErrPage (data) {
+  return Request.get(paramParse('/api/get/apierror/page', data))
+}
