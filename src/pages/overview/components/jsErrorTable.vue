@@ -12,11 +12,17 @@
         @change='changeDate'
       />
     </div>
-    <el-table :data="jsErrorList" stripe style="width: 100%">
-      <el-table-column prop="Msg" label="报错信息" />
-      <el-table-column prop="Time" label="时间"  />
-      <el-table-column prop="Position" label="报错位置" />
-    </el-table>
+    <el-table-v2
+      :columns="columns"
+      :data="jsErrorList"
+      :width="900"
+      :height="400"
+    />
+<!--    <el-table :data="jsErrorList" stripe style="width: 100%">-->
+<!--      <el-table-column prop="Msg" label="报错信息" />-->
+<!--      <el-table-column prop="Time" label="时间"  />-->
+<!--      <el-table-column prop="Position" label="报错位置" />-->
+<!--    </el-table>-->
   </div>
 
 </template>
@@ -25,6 +31,7 @@
 import { ref, watch, toRefs } from 'vue'
 import { useAppStore } from '@/store/modules/app'
 import { getJSerrorByPage } from '../../../services/overview'
+// import { timestampToTime } from '../../../utils/utils'
 
 const props = defineProps({
   path: {
@@ -78,6 +85,27 @@ const shortcuts = [
 ]
 
 const jsErrorList = ref([])
+
+const columns = [
+  {
+    key: 'Msg',
+    title: '报错信息',
+    dataKey: 'Msg',
+    width: 380
+  },
+  {
+    key: 'Time',
+    title: '时间',
+    dataKey: 'Time',
+    width: 280
+  },
+  {
+    key: 'Position',
+    title: '报错位置',
+    dataKey: 'Position',
+    width: 180
+  }
+]
 
 /**
  * 获取页面的js报错信息

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <div class="sidebar-container" style='position: fixed;z-index: 2'>
+    <div class="sidebar-container" style='position: fixed;z-index: 2'>
       <div class="logo-container">
         <el-avatar
           :size="logoHeight"
@@ -12,7 +12,7 @@
       <el-scrollbar>
         <sidebar-menu></sidebar-menu>
       </el-scrollbar>
-    </div> -->
+    </div>
 
     <div class="sidebar-container">
       <div class="logo-container">

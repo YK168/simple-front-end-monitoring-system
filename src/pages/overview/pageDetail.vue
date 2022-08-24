@@ -1,31 +1,35 @@
 <template>
-  <div class="cus-flex cus-row-left">
-    <div class="list">
-      <div class="title">网页访问量排行</div>
-      <div class="ulDiv">
-        <div class="ul"
-             :class="{action:selected === item}"
-             v-for="(item, index) in pageList"
-             :key="index" @click='selectedUrl(item)'>
-          {{ item }}
+  <div class='cus-flex cus-row-left'>
+
+      <div class='list'>
+        <el-affix :offset='70'>
+        <div class='title'>网页访问量排行</div>
+        <div class='ulDiv'>
+          <div class='ul'
+               :class='{action:selected === item}'
+               v-for='(item, index) in pageList'
+               :key='index' @click='selectedUrl(item)'>
+            {{ item }}
+          </div>
         </div>
+        </el-affix>
       </div>
-    </div>
-    <div class="content">
+
+    <div class='content'>
       <div class='data'>
-        <PV_UV_echarts :path='selected'/>
-      </div>
-      <div class='data'>
-        <jsErrorTable :path='selected'/>
+        <PV_UV_echarts :path='selected' />
       </div>
       <div class='data'>
-        <performance_echarts_broken_line :path='selected'/>
+        <jsErrorTable :path='selected' />
       </div>
       <div class='data'>
-        <sourceerror_echarts :path='selected'/>
+        <performance_echarts_broken_line :path='selected' />
       </div>
       <div class='data'>
-        <blank_echarts :path='selected'/>
+        <sourceerror_echarts :path='selected' />
+      </div>
+      <div class='data'>
+        <blank_echarts :path='selected' />
       </div>
     </div>
   </div>
@@ -69,37 +73,45 @@ const selectedUrl = async (e) => {
   selected.value = e
 }
 </script>
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .list {
   min-height: calc(100vh - 100px);
-  flex: 1;
+  flex: 2;
   padding: 20px;
   margin-right: 10px;
   border-radius: 20px;
   background-color: white;
+
   .title {
     font-size: 24px;
     font-weight: bold;
+    width: 270px;
   }
+
   .ulDiv {
     margin-top: 50px;
+
     .ul {
       padding: 20px 10px;
       cursor: pointer;
     }
+
     .action {
       border-radius: 10px;
       background-color: #ecf5ff;
     }
+
     .ul:hover {
       border-radius: 10px;
       background-color: #ecf5ff;
     }
   }
 }
+
 .content {
   flex: 4;
-  .data{
+
+  .data {
     margin-bottom: 10px;
     padding: 20px;
     border-radius: 20px;

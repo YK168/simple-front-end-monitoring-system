@@ -8,14 +8,6 @@
         :width="900"
         :height="400"
       />
-<!--      <el-table :data="apiList" stripe style="width: 100%">-->
-<!--        <el-table-column prop="Status" label="请求状态"/>-->
-<!--        <el-table-column prop="TimeStamp" label="上报时间" >-->
-<!--          <template #-->
-<!--        </el-table-column>-->
-<!--        <el-table-column prop="Duration" label="请求耗时(毫秒)"  />-->
-<!--        <el-table-column prop="Msg" label="请求消息" />-->
-<!--      </el-table>-->
     </div>
   </div>
 </template>

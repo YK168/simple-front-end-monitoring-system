@@ -1,6 +1,8 @@
 <template>
   <div class="cus-flex cus-row-left">
+
     <div class="list">
+      <el-affix :offset="70">
       <div class='cusFiexd'>
         <div class="title">API请求排行榜</div>
         <div class="ulDiv">
@@ -12,7 +14,9 @@
           </div>
         </div>
       </div>
+      </el-affix>
     </div>
+
     <div class="content">
       <div class='data'>
         <Api_echarts :path='selected'/>
@@ -59,7 +63,7 @@ const selectedUrl = async (e) => {
   position: relative;
   height: calc(100vh - 70px);
   overflow-y: auto;
-  flex: 1;
+  flex: 2;
   padding: 20px;
   margin-right: 10px;
   border-radius: 20px;
@@ -80,6 +84,7 @@ const selectedUrl = async (e) => {
   .title {
     font-size: 24px;
     font-weight: bold;
+    width: 270px;
   }
   .ulDiv {
     margin-top: 50px;
