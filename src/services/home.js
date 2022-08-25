@@ -11,5 +11,5 @@ export const listProject = () => {
 }
 /** 删除项目 */
 export const delProjecyById = (project_key) => {
-  return Request.delete('/api/v1/user/item', { project_key })
+  return Request.delete(`/api/v1/user/item/${project_key}`)
 }

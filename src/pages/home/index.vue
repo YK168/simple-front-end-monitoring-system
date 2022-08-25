@@ -94,7 +94,7 @@ const handleEdit = (data) => {
  * @returns {Promise<void>}
  */
 const handleDelete = async (delData) => {
-  const { project_key } = delData
+  const project_key = delData.project_key
   const { msg, status } = await delProjecyById(project_key)
   ElNotification({
     title: msg,
