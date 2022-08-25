@@ -363,7 +363,7 @@ export default {
           {
             name: '首屏时间',
             type: 'line',
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data: []
           },
           {
             name: '首次渲染耗时',
@@ -456,6 +456,7 @@ export default {
           const { data } = await getInspeedData(this.postData)
           if (!data) { break }
           this.InSpeed_option.xAxis[0].data = data.FMPTime.X
+          this.InSpeed_option.series[0].data = data.FMPTime.Y
           this.InSpeed_option.series[1].data = data.RunderTime.Y
           this.InSpeed_option.series[2].data = data.InteractableTime.Y
           this.InSpeed_option.series[3].data = data.DomReadyTime.Y
