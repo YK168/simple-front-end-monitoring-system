@@ -223,6 +223,15 @@ export default {
             saveAsImage: {}
           }
         },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
         get_MethodName: 'getJsErrorData',
         title: {
           text: 'JS错误'
