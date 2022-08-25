@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="sidebar-container" style='position: fixed;z-index: 2'>
-      <div class="logo-container">
+      <div class="logo-container"  @click='toHome'>
         <el-avatar
           :size="logoHeight"
           shape="square"
@@ -15,7 +15,7 @@
     </div>
 
     <div class="sidebar-container">
-      <div class="logo-container">
+      <div class="logo-container" @click='toHome'>
         <el-avatar
           :size="logoHeight"
           shape="square"
@@ -34,6 +34,7 @@
 import { computed } from 'vue'
 import { useAppStore } from '@/store/modules/app'
 import SidebarMenu from './SidebarMenu.vue'
+import { toHome } from '@/utils/auth.js'
 
 const logoHeight = 48
 
@@ -50,6 +51,7 @@ const projected = computed(() => {
 @import './sidebar.scss';
 
 .logo-container {
+  cursor: pointer;
   height: v-bind(logoHeight) + 'px';
   display: flex;
   align-items: center;

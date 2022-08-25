@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="head">
+    <div class="head cus-padding">
       <div class="head_left">
         <echart :option="P_U_V_option" @acceptData="acceptData"></echart>
       </div>
@@ -83,10 +83,10 @@
         </div>
       </div>
     </div>
-    <div class="body">
+    <div class="body cus-padding">
       <echart :option="JS_option" @acceptData="acceptData" width="1000" height="400" class="body_echart"></echart>
     </div>
-    <div class="foot">
+    <div class="foot cus-padding">
       <div class="foot_left">
         <echart :option="API_option" @acceptData="acceptData"></echart>
       </div>
@@ -101,15 +101,15 @@
 // @ is an alias to /src
 import { useAppStore } from '@/store/modules/app'
 import echart from '../../components/EchartsCom.vue'
-import { getPVandUVdata, getJsErrorData, getAPIdata, getInspeedData, getSourceErrorData, getBlankByPage } from '../../services/overview'
+import { getPVandUVdata, getJsErrorData, getAPIdata, getInspeedData, getSourceErrorData } from '../../services/overview'
 export default {
-  Created() {
+  Created () {
   },
   name: 'HomeView',
   components: {
     echart
   },
-  data() {
+  data () {
     return {
       value2: [new Date().getTime() - 3600 * 1000 * 24 * 1, new Date().getTime()],
       shortcuts2: [
@@ -145,7 +145,7 @@ export default {
       allPV: 0,
       allUV: 0,
       JSErrorCount: 0,
-      //blankRate: 0,
+      // blankRate: 0,
       APIErrorCount: 0,
       APIErrorRate: 0,
       ResourceLoadingError: 0,
@@ -153,7 +153,7 @@ export default {
         title: {
           text: 'P_U_V'
         },
-        get_MethodName: "getPVandUVdata",
+        get_MethodName: 'getPVandUVdata',
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -225,7 +225,7 @@ export default {
             saveAsImage: {}
           }
         },
-        get_MethodName: "getJsErrorData",
+        get_MethodName: 'getJsErrorData',
         title: {
           text: 'JS错误'
         },
@@ -263,9 +263,9 @@ export default {
           }
         },
         title: {
-          text: 'API请求',
+          text: 'API请求'
         },
-        get_MethodName: "getAPIdata",
+        get_MethodName: 'getAPIdata',
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -332,12 +332,12 @@ export default {
             saveAsImage: {}
           }
         },
-        get_MethodName: "getInspeedData",
+        get_MethodName: 'getInspeedData',
         title: {
           text: '访问速度'
         },
         tooltip: {
-          trigger: 'axis',
+          trigger: 'axis'
         },
         legend: {
           top: '40',
@@ -415,16 +415,16 @@ export default {
     }
   },
   methods: {
-    async acceptData(e) {
+    async acceptData (e) {
       console.log('父组件收到日期变化emit')
       console.log('开始日期 :' + (e[0].value[0] * 1).toString().slice(0, 10))
       console.log('结束日期 :' + (e[0].value[1] * 1).toString().slice(0, 10))
       const userStore = useAppStore()
       const { project_key } = userStore.getSelectProject
       console.log(project_key)
-      this.postData = {//目前还只能填startTime: 1640966400, endTime: 1643644800
+      this.postData = { // 目前还只能填startTime: 1640966400, endTime: 1643644800
         projectKey: project_key,
-        //projectKey: '17459aaf3a37a5c91e04a8dcccb8e993',
+        // projectKey: '17459aaf3a37a5c91e04a8dcccb8e993',
         startTime: Number((e[0].value[0] * 1).toString().slice(0, 10)),
         endTime: Number((e[0].value[1] * 1).toString().slice(0, 10))
       }
@@ -443,7 +443,7 @@ export default {
           this.P_U_V_option.xAxis[0].data = data.PVData.X
           e[1].setOption(this.P_U_V_option)
 
-          break;
+          break
         }
         case 'getJsErrorData': {
           const { data } = await getJsErrorData(this.postData)
@@ -451,7 +451,7 @@ export default {
           this.JS_option.series[0].data = data.Data.Y
           this.JS_option.xAxis[0].data = data.Data.X
           e[1].setOption(this.JS_option)
-          break;
+          break
         }
         case 'getAPIdata': {
           const { data } = await getAPIdata(this.postData)
@@ -460,7 +460,7 @@ export default {
           this.API_option.series[1].data = data.SuccCnt.Y
           this.API_option.xAxis[0].data = data.ErrCnt.X
           e[1].setOption(this.API_option)
-          break;
+          break
         }
         case 'getInspeedData': {
           const { data } = await getInspeedData(this.postData)
@@ -472,14 +472,14 @@ export default {
           this.InSpeed_option.series[4].data = data.LoadCompleteTime.Y
           this.InSpeed_option.series[5].data = data.BlankTime.Y
           e[1].setOption(this.InSpeed_option)
-          break;
+          break
         }
         default: {
           console.log('找不到该表的API请求')
         }
       }
     },
-    async changeDate2() {
+    async changeDate2 () {
       this.postData2.startTime = Number((this.value2[0] * 1).toString().slice(0, 10))
       this.postData2.endTime = Number((this.value2[1] * 1).toString().slice(0, 10))
       let data = await getPVandUVdata(this.postData2)
@@ -557,7 +557,6 @@ export default {
           width: 200px;
         }
       }
-
 
       .h_r_center {
         display: flex;

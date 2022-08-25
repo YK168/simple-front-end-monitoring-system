@@ -57,17 +57,6 @@ const routes = [
           title: '网络请求监控',
           icon: 'el-icon-user'
         }
-      },
-
-      {
-        path: '/about',
-        name: 'about',
-        component: () =>
-          import(/* webpackChunkName: "about" */ '@/pages/about/index.vue'),
-        meta: {
-          title: '关于',
-          icon: 'el-icon-user'
-        }
       }
     ]
   }
