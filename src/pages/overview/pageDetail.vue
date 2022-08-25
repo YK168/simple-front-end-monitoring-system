@@ -1,253 +1,137 @@
 <template>
-  <div class="home">
-    <div class="middle">
-      <div class="rank">网页访问量排行</div>
-      <div class="HomePage">/home</div>
-      <div class="about">/about</div>
+  <div class='cus-flex cus-row-left'>
+
+    <div class='list' style='opacity: 0;z-index: -1'>
+
     </div>
-    <div class="data">
-      <div class="PV">PV/UV</div>
-      <select v-model="selected" class="select1">
-        <option>今天</option>
-        <option>昨天</option>
-        <option>前天</option>
-      </select>
-      <echart
-        :option="API_option"
-        width="1217px"
-        height="497px"
-        class="data1"
-      ></echart>
-    </div>
-    <div class="exhibition">
-      <div class="title">
-        <div class="options">JS错误</div>
-        <select v-model="selected" class="select">
-          <option>A</option>
-          <option>B</option>
-          <option>C</option>
-        </select>
-        <div class="ErrorNumber">报错数：1</div>
-        <div class="ErrorRate">报错率：1%</div>
-        <table
-          border="1"
-          cellpadding="15"
-          cellspacing="0"
-          style="text-align: center"
-          class="table"
-        >
-          <tr>
-            <td width="267" height="40">错误信息</td>
-            <td width="267" height="40">报错时间</td>
-            <td width="267" height="40">报错位置</td>
-          </tr>
-          <tr>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-          </tr>
-          <tr>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-          </tr>
-          <tr>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-            <td width="267" height="40"></td>
-          </tr>
-        </table>
+      <div class='list' style='position: fixed'>
+        <div class='title'>网页访问量排行</div>
+        <div class='ulDiv'>
+          <div class='ul'
+               :class='{action:selected === item}'
+               v-for='(item, index) in pageList'
+               :key='index' @click='selectedUrl(item)'>
+            {{ item }}
+          </div>
+        </div>
+      </div>
+
+    <div class='content'>
+      <div class='data'>
+        <PV_UV_echarts :path='selected' />
+      </div>
+      <div class='data'>
+        <jsErrorTable :path='selected' />
+      </div>
+      <div class='data'>
+        <performance_echarts_broken_line :path='selected' />
+      </div>
+      <div class='data'>
+        <sourceerror_echarts :path='selected' />
+      </div>
+      <div class='data'>
+        <blank_echarts :path='selected' />
       </div>
     </div>
   </div>
 </template>
-<script>
-import echart from '../../components/EchartsCom.vue'
-export default {
-  name: 'HomeView',
-  components: {
-    echart
-  },
-  data () {
-    return {
-      API_option: {
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line',
-            areaStyle: {}
-          }
-        ]
-      }
+<script setup>
+import { onMounted, ref } from 'vue'
+import PV_UV_echarts from './components/PV_UV_echarts.vue'
+import jsErrorTable from './components/jsErrorTable.vue'
+// import performance_echarts from './components/performance_echarts.vue'
+import performance_echarts_broken_line from './components/performance_echarts_broken_line.vue'
+import sourceerror_echarts from './components/sourceerror_echarts.vue'
+import blank_echarts from './components/blank_echarts.vue'
+
+import { getAccessRank } from '../../services/overview'
+import { useAppStore } from '@/store/modules/app'
+
+const userStore = useAppStore()
+const { project_key } = userStore.getSelectProject
+
+const pageList = ref([])
+const selected = ref()
+
+onMounted(() => {
+  queryList()
+})
+
+const queryList = async () => {
+  const post = {
+    projectKey: project_key
+  }
+  const { data } = await getAccessRank(post)
+  pageList.value = data
+  const len = pageList.value.length
+  if (len > 0) {
+    await selectedUrl(pageList.value[0])
+  }
+}
+
+// 选中排行榜上的数据
+const selectedUrl = async (e) => {
+  selected.value = e
+}
+</script>
+<style lang='scss' scoped>
+.list {
+  min-height: calc(100vh - 100px);
+  width: 300px;
+  padding: 20px;
+  margin-right: 10px;
+  border-radius: 20px;
+  background-color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+  &::-webkit-scrollbar{
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background: rgba(0,0,0,0.1);
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    width: 270px;
+  }
+
+  .ulDiv {
+    margin-top: 50px;
+
+    .ul {
+      padding: 20px 10px;
+      cursor: pointer;
+    }
+
+    .action {
+      border-radius: 10px;
+      background-color: #ecf5ff;
+    }
+
+    .ul:hover {
+      border-radius: 10px;
+      background-color: #ecf5ff;
     }
   }
 }
-</script>
-<style lang="scss" scoped>
-.home {
-  background-color: rgba(196, 193, 193, 0.425);
-  width: 1600px;
-  position: absolute;
-  left:55px;
-  .middle {
-    width: 360px;
-    height: 946px;
-    background: #ffffff;
-    border: 1px solid #797979;
-    border-radius: 0px;
-    display: inline-block;
-    position: absolute;
-    top: auto;
-    text-align: center;
-    .rank {
-      width: 196px;
-      height: 39px;
-      font-size: 28px;
-      margin: auto;
-      margin-top: 46px;
-      font-family: Microsoft YaHei, Microsoft YaHei-Normal;
-      font-weight: normal;
-      color: #333333;
-      line-height: 25px;
-    }
-    .HomePage,
-    .about {
-      width: 321px;
-      height: 39px;
-      border: 1px solid #797979;
-      border-radius: 0px;
-      font-size: 28px;
-      margin: auto;
-      margin-top: 45px;
-      font-family: Microsoft YaHei, Microsoft YaHei-Normal;
-      font-weight: normal;
-      color: #333333;
-      line-height: 35px;
-    }
-  }
+
+.content {
+  flex: 4;
+
   .data {
-    width: 1217px;
-    height: 497px;
-    border: 1px solid #797979;
-    border-radius: 0px;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 20px;
     background-color: white;
-    margin-left: 380px;
-    display: inline-block;
-    position: relative;
-  }
-  .PV {
-    width: 88px;
-    height: 39px;
-    border-radius: 0px;
-    font-size: 28px;
-    font-family: Microsoft YaHei, Microsoft YaHei-Normal;
-    font-weight: normal;
-    text-align: LEFT;
-    color: #333333;
-    position: absolute;
-    top: 7px;
-    left: 20px;
-    display: inline-block;
-  }
-  .select1 {
-    width: 150px;
-    height: 30px;
-    background: #ffffff;
-    border: 1px solid #797979;
-    border-radius: 2px;
-    font-size: 14px;
-    font-family: Microsoft YaHei, Microsoft YaHei-Normal;
-    font-weight: normal;
-    text-align: LEFT;
-    color: #333333;
-    line-height: 20px;
-    position: absolute;
-    top: 7px;
-    right: 20px;
-    display: inline-block;
-    z-index: 1;
-  }
-  .exhibition {
-    width: 1217px;
-    height: 414px;
-    border: 1px solid #797979;
-    border-radius: 0px;
-    background-color: white;
-    margin-left: 380px;
-    margin-top: 30px;
-    position: relative;
-    .options,
-    .select,
-    .ErrorNumber,
-    .ErrorRate {
-      display: inline-block;
-      margin-top: 26px;
-      position: absolute;
-    }
-    .options {
-      width: 84px;
-      height: 39px;
-      border-radius: 0px;
-      font-size: 28px;
-      font-family: Microsoft YaHei, Microsoft YaHei-Normal;
-      font-weight: normal;
-      text-align: LEFT;
-      color: #333333;
-      left: 36px;
-    }
-    .select {
-      width: 150px;
-      height: 30px;
-      background: #ffffff;
-      border: 1px solid #797979;
-      border-radius: 2px;
-      font-size: 20px;
-      font-family: Microsoft YaHei, Microsoft YaHei-Normal;
-      font-weight: normal;
-      text-align: LEFT;
-      color: #333333;
-      line-height: 20px;
-      left: 148px;
-      margin-top: 29px;
-    }
-    .ErrorNumber {
-      width: 129px;
-      height: 39px;
-      border-radius: 0px;
-      font-size: 28px;
-      font-family: Microsoft YaHei, Microsoft YaHei-Normal;
-      font-weight: normal;
-      text-align: LEFT;
-      color: #333333;
-      right: 324px;
-    }
-    .ErrorRate {
-      width: 154px;
-      height: 39px;
-      border-radius: 0px;
-      font-size: 28px;
-      font-family: Microsoft YaHei, Microsoft YaHei-Normal;
-      font-weight: normal;
-      text-align: LEFT;
-      color: #333333;
-      right: 73px;
-    }
-    .table {
-      position: absolute;
-      margin: auto;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
   }
 }
 </style>

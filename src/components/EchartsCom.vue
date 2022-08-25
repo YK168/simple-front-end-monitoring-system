@@ -19,93 +19,102 @@
     </div>-->
     <!-- 日期选择组件 -->
     <div class="block">
-      <el-date-picker
-        v-model="value1"
-        type="datetimerange"
-        :shortcuts="shortcuts"
-        range-separator="To"
-        start-placeholder="Start date"
-        end-placeholder="End date"
-      />
+      <el-date-picker v-model="value1" type="datetimerange" :shortcuts="shortcuts" range-separator="To"
+        start-placeholder="Start date" end-placeholder="End date" @change='changeDate' />
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import * as echarts from 'echarts'
-import { ref } from 'vue'
-export default {
-  props: {
-    width: {
-      type: String,
-      default: '600'
-    },
-    height: {
-      type: String,
-      default: '400'
+import { ref, watch, getCurrentInstance, onMounted } from 'vue'
+/********************************************************************/
+const props = defineProps({
+  width: {
+    type: String,
+    default: '600'
+  },
+  height: {
+    type: String,
+    default: '400'
+  },
+  option: {
+    type: Object
+  }
+})
+const value1 = ref([new Date() - 3600 * 1000 * 24 * 1, new Date()])
+let myEchart = null
+const shortcuts = [
+  {
+    text: '上周',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+      return [start, end]
     }
   },
-  data() {
-    return {
-      value1: ref([new Date() - 3600 * 1000 * 24 * 1, new Date()]),
-      shortcuts: [
-        {
-          text: 'Last week',
-          value: () => {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            return [start, end]
-          }
-        },
-        {
-          text: 'Last month',
-          value: () => {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            return [start, end]
-          }
-        },
-        {
-          text: 'Last 3 months',
-          value: () => {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            return [start, end]
-          }
-        }
-      ]
+  {
+    text: '上个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+      return [start, end]
     }
   },
-  mounted() {
-    this.init()
-  },
-  methods: {
-    init() {
-      /* this.$refs.Echarts_container.style.width=parseInt(this.width)
-      this.$refs.Echarts_container.style.height=parseInt(this.height) */
-      const myEchart = echarts.init(this.$refs.Echarts_container, null, {
-        width: parseInt(this.width),
-        height: parseInt(this.height)
-      })
-      const option = this.$attrs.option
-      myEchart.setOption(option)
+  {
+    text: '最近三个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+      return [start, end]
     }
-  },
-  watch: {}
+  }
+]
+const emits = defineEmits(['acceptData'])
+/********************************************************************/
+onMounted(() => {
+  init()
+})
+
+watch([() => value1, props.option], ([newValue1, newOption], [oldValue, oldOption]) => {
+
+  // if(newValue1){
+  //   emits('acceptData', [value1, myEchart])
+  //   console.log('子组件日期变化（默认或被监听）')
+  // }
+  if (newOption && myEchart) {
+    myEchart.setOption(newOption)
+  }
+})
+/********************************************************************/
+function init() {
+  myEchart = echarts.init(
+    getCurrentInstance().proxy.$refs.Echarts_container,
+    null,
+    {
+      width: parseInt(props.width),
+      height: parseInt(props.height)
+    }
+  )
+  const option = props.option
+  myEchart.setOption(option)
+  emits('acceptData', [value1, myEchart])
+}
+
+const changeDate = () => {
+  console.log('改变了时间')
+  emits('acceptData', [value1, myEchart])
 }
 </script>
 
 <style lang="scss">
-.el-time-spinner:last-child {
-  background-color: burlywood;
-  display: none;
-}
 .block {
   position: absolute;
   top: 0px;
 }
+
 /* .drop {
   position: absolute;
   top: 20px;
@@ -116,6 +125,7 @@ export default {
   justify-content: center;
   position: relative;
 }
+
 /* .example-showcase .el-dropdown-link {
   cursor: pointer;
   color: var(--el-color-primary);

@@ -1,11 +1,9 @@
 <template>
   <div class="app-main">
     <router-view v-slot="{ Component, route }">
-      <transition name="fade-transform" mode="out-in">
-        <keep-alive>
-          <component :is="Component" :key="route.path" />
-        </keep-alive>
-      </transition>
+      <keep-alive>
+        <component :is="Component" :key="route.path" />
+      </keep-alive>
     </router-view>
   </div>
 </template>
@@ -21,5 +19,6 @@
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  background-color: #f5f5f5;
 }
 </style>

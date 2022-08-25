@@ -8,8 +8,15 @@ import { setupStore } from './store'
 // 导入全局样式
 import './styles/index.scss'
 
+/* */
+import axios from 'axios'
+
+// import "../src/utils/YKmonitor/index"
+
 const app = createApp(App)
 
 setupStore(app)
+app.config.globalProperties.$axios = axios
+/*  */
 
 app.use(ElementPlus).use(routers).mount('#app')

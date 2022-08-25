@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.6",
+    "alife-logger": "^1.8.30",
     "axios": "^0.27.2",
     "dayjs": "^1.11.4",
     "echarts": "^5.3.3",
