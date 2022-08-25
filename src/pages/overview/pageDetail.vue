@@ -1,8 +1,10 @@
 <template>
   <div class='cus-flex cus-row-left'>
 
-      <div class='list'>
-        <el-affix :offset='70'>
+    <div class='list' style='opacity: 0;z-index: -1'>
+
+    </div>
+      <div class='list' style='position: fixed'>
         <div class='title'>网页访问量排行</div>
         <div class='ulDiv'>
           <div class='ul'
@@ -12,7 +14,6 @@
             {{ item }}
           </div>
         </div>
-        </el-affix>
       </div>
 
     <div class='content'>
@@ -76,11 +77,26 @@ const selectedUrl = async (e) => {
 <style lang='scss' scoped>
 .list {
   min-height: calc(100vh - 100px);
-  flex: 2;
+  width: 300px;
   padding: 20px;
   margin-right: 10px;
   border-radius: 20px;
   background-color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+  &::-webkit-scrollbar{
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background: rgba(0,0,0,0.1);
+  }
 
   .title {
     font-size: 24px;

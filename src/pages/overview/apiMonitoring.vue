@@ -1,8 +1,9 @@
 <template>
   <div class="cus-flex cus-row-left">
+    <div class="list" style='opacity: 0;z-index: -1'>
 
-    <div class="list">
-      <el-affix :offset="70">
+    </div>
+    <div class="list" style='position: fixed;'>
       <div class='cusFiexd'>
         <div class="title">API请求排行榜</div>
         <div class="ulDiv">
@@ -14,9 +15,7 @@
           </div>
         </div>
       </div>
-      </el-affix>
     </div>
-
     <div class="content">
       <div class='data'>
         <Api_echarts :path='selected'/>
@@ -63,7 +62,8 @@ const selectedUrl = async (e) => {
   position: relative;
   height: calc(100vh - 70px);
   overflow-y: auto;
-  flex: 2;
+  overflow-x: hidden;
+  width: 300px;
   padding: 20px;
   margin-right: 10px;
   border-radius: 20px;
